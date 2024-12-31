@@ -19,7 +19,7 @@ Which tag has the following text? - *Automatically remove the container when it 
 - ~~`--delete`~~
 - ~~`--rc`~~
 - ~~`--rmc`~~
-- `--rm`
+- __`--rm`__
 
 
 ### Question 2. Understanding docker first run 
