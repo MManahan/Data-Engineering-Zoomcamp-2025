@@ -1,0 +1,64 @@
+docker run -it \
+    -e POSTGRES_USER=root \
+    -e POSTGRES_PASSWORD=root \
+    -e POSTGRES_DB="ny_taxi" \ 
+    -v /Users/mermanahan/Projects/Data-Engineering-Zoomcamp-2025/Homework/HW1/ny_taxi_postgres_data:/var/lib/postgresql/data \
+    -p 5432:5432 \
+    postgres:latest
+
+
+## Run Postgres Container
+
+docker run -it \
+  --name postgres-db \
+  -e POSTGRES_PASSWORD=root \
+  -e POSTGRES_USER=root \
+  -e POSTGRES_DB=ny_taxi \
+  -v $(pwd)/ny_taxi_postgres_data:/var/lib/postgresql/data \
+  -p 5432:5432 \
+  postgres:latest
+
+
+## Run pgcli to connect to postgres in container
+
+  pgcli -h localhost -p 5432 -u root -d ny_taxi
+
+## Create pg-network to let pgAdmin see Postgres 
+
+ docker create network pg-network
+
+## Run Postgres Container w/ network
+
+docker run -it \
+  --name pg-database \
+  -e POSTGRES_PASSWORD=root \
+  -e POSTGRES_USER=root \
+  -e POSTGRES_DB=ny_taxi \
+  -v $(pwd)/ny_taxi_postgres_data:/var/lib/postgresql/data \
+  -p 5432:5432 \
+  --network=pg-network \
+  postgres:latest
+
+## Run pgdmin container w/ network
+
+docker run -it \
+  -e PGADMIN_DEFAULT_EMAIL="admin@admin.com" \
+  -e PGADMIN_DEFAULT_PASSWORD="root" \
+  -p 8080:80 \
+  --network=pg-network \
+  --name pgadmin \
+  dpage/pgadmin4
+
+
+## Run ingest-data script in container
+
+URL = "https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2019-09.csv.gz"
+
+python3 ingest-data.py \
+    -- user=root \
+    -- password=root \
+    -- host=localhost \
+    -- port=5432 \
+    -- db=ny_taxi
+    -- table_name=yellow_taxi_trips
+    -- url=${URL}
