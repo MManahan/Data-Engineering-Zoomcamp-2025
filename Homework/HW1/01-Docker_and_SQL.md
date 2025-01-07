@@ -16,9 +16,6 @@ Do the same for "docker run".
 
 Which tag has the following text? - *Automatically remove the container when it exits* 
 
-- ~~`--delete`~~
-- ~~`--rc`~~
-- ~~`--rmc`~~
 - __`--rm`__
 
 
@@ -42,24 +39,36 @@ How many taxi trips were totally made on September 18th 2019?
 
 Tip: started and finished on 2019-09-18. 
 
-Remember that `lpep_pickup_datetime` and `lpep_dropoff_datetime` columns are in the format timestamp (date and hour+min+sec) and not in date.
+~~~~
+SELECT count(1)
 
-- 15767
-- 15612
-- 15859
-- 89009
+FROM yellow_taxi_data
+
+WHERE date(tpep_pickup_datetime) = '2019-09-18'
+        and date(tpep_dropff_datetime) = '2019-09-18' 
+~~~~
+
+
+`239,842`
+
 
 ## Question 4. Longest trip for each day
 
 Which was the pick up day with the longest trip distance?
 Use the pick up time for your calculations.
 
-Tip: For every trip on a single day, we only care about the trip with the longest distance. 
+~~~~
+SELECT date(tpep_pickup_datetime)
+        , max(trip_distance) as Max_Trip_Distance_by_day
+FROM yellow_taxi_data
+GROUP BY 1
+ORDER BY 2 desc
+LIMIT 10
+~~~~
 
-- 2019-09-18
-- 2019-09-16
-- 2019-09-26
-- 2019-09-21
+
+- `2019-09-16 (603.5 miles)`
+
 
 
 ## Question 5. Three biggest pick up Boroughs
