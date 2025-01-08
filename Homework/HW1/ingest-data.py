@@ -15,24 +15,23 @@ def main(params):
     db = params.db
     table_name = params.table_name
     url = params.url
-    
-    csv_name = 'output.csv'
+
+    if url.endswith('.csv.gz'):
+        csv_name = 'output.csv.gz'
+    else:
+        csv_name = 'output.csv'
     
     # Download the csv
 
-    os.system(f"wget {url} -O {csv_name}")
+    os.system(f"curl -L -o {csv_name} {url}")
 
     # Create database connection
 
     engine = create_engine(f'postgresql://{user}:{password}@{host}:{port}/{db}')
 
-    # Read csv file 
-
-    df = pd.read_csv('yellow_tripdata_2019-09.csv', nrows=100)
-
     # Set iteration chunk size
 
-    df_iter = pd.read_csv('yellow_tripdata_2019-09.csv', iterator=True, chunksize=100000)
+    df_iter = pd.read_csv(csv_name, iterator=True, chunksize=100000)
 
     # Move to next iteration
 
@@ -45,7 +44,7 @@ def main(params):
 
     # Create table in database of just header row
 
-    df.head(n=0).to_sql(name='yellow_taxi_data', con=engine, if_exists='replace')
+    df.head(n=0).to_sql(name=table_name, con=engine, if_exists='replace')
 
     df.to_sql(name=table_name, con=engine, if_exists='append')
 
