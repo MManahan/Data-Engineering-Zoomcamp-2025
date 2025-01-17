@@ -1,4 +1,4 @@
--- Question 3
+-- Question 3 (104802, 198924, 109603, 27678, 35189)
 
 SELECT 
 	SUM(CASE WHEN trip_distance <= 1.00 THEN 1 ELSE 0 END) AS One_Mile
