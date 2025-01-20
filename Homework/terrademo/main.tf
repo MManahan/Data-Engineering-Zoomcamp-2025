@@ -9,13 +9,13 @@ terraform {
 
 provider "google" {
   # Configuration options
-  project = "dtc-de-course-448403"
-  region  = "us-east1"
+  project = var.project
+  region  = var.region
 }
 
 resource "google_storage_bucket" "demo-bucket" {
-  name          = "dtc-de-course-448403-terra-bucket"
-  location      = "US"
+  name          = var.gcs_storage_name
+  location      = var.gcs_storage_location
   force_destroy = true
 
 
