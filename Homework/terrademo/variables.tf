@@ -4,6 +4,13 @@ variable "gcs_storage_location" {
   default     = "US"
 }
 
+variable "credentials" {
+  description = "The path to the service account key file"
+  type        = string
+  default     = "./keys/my-creds.json"
+
+}
+
 variable "gcs_storage_name" {
   description = "My Google Cloud Storage bucket name"
   type        = string
