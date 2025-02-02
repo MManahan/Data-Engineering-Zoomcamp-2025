@@ -1,0 +1,13 @@
+.ipynb_checkpoints/
+ny_taxi_postgres_data/
+*.csv
+*.gz
+.DS_Store
+
+pgdata
+data
+mnt_data
+logs
+*.swp
+_*
+.DS_Store
