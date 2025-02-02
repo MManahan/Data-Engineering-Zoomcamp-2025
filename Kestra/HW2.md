@@ -12,7 +12,7 @@
 
 ```
 SELECT COUNT(unique_row_id)
-FROM public.green_tripdata
+FROM public.yellow_tripdata
 WHERE filename LIKE 'yellow_tripdata_2020%'
 ```
 ### `24,648,499`
