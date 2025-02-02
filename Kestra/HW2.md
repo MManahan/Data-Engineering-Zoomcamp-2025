@@ -15,6 +15,7 @@ SELECT COUNT(unique_row_id)
 FROM public.green_tripdata
 WHERE filename LIKE 'yellow_tripdata_2020%'
 ```
+### `24,548,499`
 
 ### #4 How many rows are there for the Green Taxi data for all CSV files in the year 2020?
 
