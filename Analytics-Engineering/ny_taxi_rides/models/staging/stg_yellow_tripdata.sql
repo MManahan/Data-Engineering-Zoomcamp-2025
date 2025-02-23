@@ -18,11 +18,10 @@ select
     -- timestamps
     cast(tpep_pickup_datetime as timestamp) as pickup_datetime,
     cast(tpep_dropoff_datetime as timestamp) as dropoff_datetime,
-    {{ dbt_date.date_part("year", "lpep_pickup_datetime") }} as pickup_year,
-    {{ dbt_date.date_part("quarter", "lpep_pickup_datetime") }} as pickup_quarter,
-    {{ dbt_date.date_part("year", "lpep_pickup_datetime") }} as pickup_year,
-    CONCAT({{ dbt_date.da_part("year", "lpep_pickup_datetime") }},'/',{{ dbt_date.date_part("quarter", "lpep_pickup_datetime") }}) as year_quarter,
-    {{ dbt_date.date_part("month", "lpep_pickup_datetime") }} as pickup_month,
+    {{ dbt_date.date_part("year", "tpep_pickup_datetime") }} as pickup_year,
+    {{ dbt_date.date_part("quarter", "tpep_pickup_datetime") }} as pickup_quarter,
+    CONCAT({{ dbt_date.date_part("year", "tpep_pickup_datetime") }},'/',{{ dbt_date.date_part("quarter", "tpep_pickup_datetime") }}) as year_quarter,
+    {{ dbt_date.date_part("month", "tpep_pickup_datetime") }} as pickup_month,
     
     -- trip info
     store_and_fwd_flag,
